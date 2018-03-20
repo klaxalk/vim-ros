@@ -15,17 +15,18 @@ if exists('loaded_ros') || &cp || version < 700
     finish
 endif
 
-if !has('python')
+if !has('python3')
     call s:error("Disabling ros.vim: Vim with +python is required")
     finish
 endif
 
-python << PYTHON
+python3 << PYTHON
 import vim
 try:
     import rospkg
 except ImportError:
     vim.command('let s:rospkg_not_found = 1')
+import os.path
 PYTHON
 
 if exists('s:rospkg_not_found')
@@ -77,10 +78,11 @@ endif
 " Detection {{{
 
 function! s:Detect(filename)
-python << PYTHON
-package = rospkg.get_package_name(vim.eval('a:filename'))
-if package is not None:
-    vim.command('call s:BufInit("{0}")'.format(package))
+python3 << PYTHON
+if os.path.isfile(vim.eval('a:filename')):
+  package = rospkg.get_package_name(vim.eval('a:filename'))
+#  if package is not None:
+#    vim.command('call s:BufInit("{0}")'.format(package))
 PYTHON
 endfunction
 

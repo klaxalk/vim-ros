@@ -4,7 +4,7 @@ Wrap Python functions/classes so that could be transparently called from Vim.
 
 import vim
 
-PY = 'python'
+PY = 'python3'
 
 # Bring vimp and this module into Vim's global scope
 vim.command('{0} import vimp, vimp.functions'.format(PY))
