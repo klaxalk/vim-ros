@@ -80,7 +80,10 @@ endif
 function! s:Detect(filename)
 python3 << PYTHON
 if os.path.isfile(vim.eval('a:filename')):
-  package = rospkg.get_package_name(vim.eval('a:filename'))
+  try:
+    package = rospkg.get_package_name(vim.eval('a:filename'))
+  except:
+    pass
 #  if package is not None:
 #    vim.command('call s:BufInit("{0}")'.format(package))
 PYTHON
